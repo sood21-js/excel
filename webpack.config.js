@@ -11,11 +11,9 @@ const filename = ext => isDev ? `bundle.${ext}` : `bundle.[hash].${ext}`
 const jsloders = () => {
     const loaders = [
         {
-            loader: {
-                loader: 'babel-loader',
-                options: {
-                    presets: ["@babel/preset-env"]
-                }
+            loader: 'babel-loader',
+            options: {
+                presets: ["@babel/preset-env"]
             }
         }
     ]
