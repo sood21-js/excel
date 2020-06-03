@@ -9,7 +9,14 @@
         "semi":"off",
         "arrow-parens":"off",
         "require-jsdoc": "off",
-        "linebreak-style": "off"
+        "linebreak-style": "off",
+        "object-curly-spacing": "off",
+        "comma-dangle":"off",
+        "operator-linebreak": "off",
+        "no-debugger": "warn",
+        "max-len": "off",
+        "no-unused-vars": "warn",
+        "indent": ["error", 4, { "SwitchCase": 1 }]
      },
      "extends": ["eslint:recommended", "google"]
  }
