@@ -1,13 +1,11 @@
 class Dom {
     constructor(selector) {
-        console.log(selector)
         this.$el = typeof selector === 'string'
             ? document.querySelector(selector)
             : selector
     }
 
     html(html) {
-        console.log(html)
         if (typeof html === 'string') {
             this.$el.innerHTML = html
             return this
@@ -16,8 +14,15 @@ class Dom {
     }
 
     clear() {
-        console.log()
         this.html('')
+    }
+
+    on(eventType, callback) {
+        this.$el.addEventListener(eventType, callback)
+    }
+
+    off(eventType, callback) {
+        this.$el.removeEventListener(eventType, callback)
     }
 
     append(node) {
@@ -34,12 +39,10 @@ class Dom {
 }
 
 export function $(selector) {
-    console.log(selector)
     return new Dom(selector)
 }
 
 $.create = (tagName, classes = '') => {
-    console.log(tagName, classes)
     const el = document.createElement(tagName)
     if (classes) {
         el.classList.add(classes)

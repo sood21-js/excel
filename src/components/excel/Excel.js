@@ -8,20 +8,21 @@ export class Excel {
 
     getRoot() {
         const $root = $.create('div', 'excel')
-        console.log($root)
-        this.components.forEach(Component => {
-            // const $el = document.createElement('div')
-            // $el.classList.add(Component.className)
+        this.components = this.components.map(Component => {
             const $el = $.create('div', Component.className)
             const comnponent = new Component($el)
             $el.html(comnponent.toHTML())
             $root.append($el)
-            // $root.insertAdjacentHTML('beforeend', comnponent.toHTML())
+            return comnponent
         });
         return $root
     }
 
     render() {
+        // add html
         this.$el.append(this.getRoot())
+
+        // add listeners
+        this.components.forEach(component => component.init())
     }
 }
