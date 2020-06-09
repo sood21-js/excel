@@ -6,9 +6,7 @@ const CODE = {
 function toCell(row) {
     return (_, index) => {
         return `
-            <div class="cell" contenteditable="true" data-col="${index}" data-row="${row}">
-                <div class="cell-resize-col" data-resize="col" data-col-resize="${index}"></div>
-                <div class="cell-resize-row" data-resize="row" data-row-resize="${row}"></div>
+            <div class="cell" contenteditable data-col="${index}" data-row="${row}">
             </div>
         `
     }
@@ -18,13 +16,13 @@ function toColums(char, index) {
     return `
         <div class="column" data-type="resizable" data-col=${index}>
             ${char}
-            <div class="col-resize" data-resize="col"></div>
+            <div class="col-resize" data-resize="col" data-col-resize="${index}"></div>
         </div>
     `
 }
 
 function createRow(index, content) {
-    const resize = index ? `<div class="row-resize" data-resize="row"></div>` : ''
+    const resize = index ? `<div class="row-resize" data-resize="row" data-row-resize="${index}"></div>` : ''
     return `
         <div class="row" data-row="${index}" data-type="resizable">
             <div class="row-info">

@@ -74,8 +74,7 @@
 
   .col-resize,
   .row-resize,
-  .cell-resize-row,
-  .cell-resize-col {
+  .cell-resize-row {
     position: absolute;
     right: 0;
     bottom: 0;
@@ -93,7 +92,7 @@
 
   .col-resize {
     top: 0;
-    width: 4px;
+    width: 2px;
     &:hover {
       cursor: col-resize;
     }
@@ -105,11 +104,6 @@
     &:hover {
       cursor: row-resize;
     }
-  }
-
-  .cell-resize-col {
-    width: 1px;
-    top: 0;
   }
 
   .cell-resize-row {
