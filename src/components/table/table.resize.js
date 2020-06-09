@@ -2,33 +2,30 @@ import { $ } from '@core/dom';
 
 export function resizeHandler($root) {
     {
+        const rootCoords = $root.getCoords()
         const $resize = $(event.target)
         const type = $resize.data.resize
         const $parent = $resize.closest('[data-type="resizable"]')
         const coords = $parent.getCoords()
         let value
         let delta
+        const spenProp = type === 'col'
+            ? { cellType: 'right', delta: 'pageX', value: 'width', css: 'height' }
+            : { cellType: 'bottom', delta: 'pageY', value: 'height', css: 'width' }
 
         $resize.css({
             opacity: 1,
             zIndex: 1000,
+            [spenProp.css]: rootCoords[spenProp.css] + 'px'
         })
 
         const cells = $root.findAll(`[data-col="${$parent.data.col}"]`)
-        const cellsResize = $root.findAll(`[data-${type}-resize="${$parent.data[type]}"]`)
-        cellsResize.forEach(cell => $(cell).css({ opacity: 1 }))
-
-        const spenProp = type === 'col'
-            ? { cellType: 'right', delta: 'pageX', value: 'width' }
-            : { cellType: 'bottom', delta: 'pageY', value: 'height' }
-
         document.onmousemove = e => {
             delta = e[spenProp.delta] - coords[spenProp.cellType]
             value = coords[spenProp.value] + delta
             $resize.css({
                 [spenProp.cellType]: -delta + 'px'
             })
-            cellsResize.forEach(cell => $(cell).css({ [spenProp.cellType]: -delta + 'px' }))
         }
 
         document.onmouseup = () => {
@@ -40,7 +37,6 @@ export function resizeHandler($root) {
             } else if (type === 'row') {
                 $parent.css({ height: value + 'px' })
             }
-            cellsResize.forEach(cell => $(cell).css({ [spenProp.cellType]: 0, opacity: 0 }))
 
             $resize.css({
                 opacity: 0,
