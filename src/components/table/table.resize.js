@@ -21,6 +21,7 @@ export function resizeHandler($root) {
 
         const cells = $root.findAll(`[data-col="${$parent.data.col}"]`)
         document.onmousemove = e => {
+            console.log(e)
             delta = e[spenProp.delta] - coords[spenProp.cellType]
             value = coords[spenProp.value] + delta
             $resize.css({
