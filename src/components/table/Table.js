@@ -11,7 +11,7 @@ export class Table extends ExcelComponent {
     constructor($root, options) {
         super($root, {
             name: 'Table',
-            listeners: ['mousedown', 'keyup'],
+            listeners: ['mousedown', 'keyup', 'input'],
             ...options
         })
     }
@@ -28,11 +28,11 @@ export class Table extends ExcelComponent {
         const $cell = this.$root.find('[data-id="0:0"]')
         this.selection.select($cell)
 
-        this.emitter.subscribe('changeFormula', text => {
+        this.emitter.subscribe('formula:input', text => {
             this.selection.current.text(text)
         })
 
-        this.emitter.subscribe('changeFocusToCell', () => {
+        this.emitter.subscribe('formula:focus', () => {
             this.selection.current.addFocus()
         })
     }
@@ -47,7 +47,8 @@ export class Table extends ExcelComponent {
         } else if (isCell(event)) {
             this.selection.select($(event.target))
             const text = $(event.target).text()
-            this.emitter.emit('changeCell', text)
+            this.emitter.emit('table:input', text)
+
         }
     }
 
@@ -67,8 +68,12 @@ export class Table extends ExcelComponent {
             const selector = getSelector(id, key)
             const $cell = this.$root.find(selector)
             this.selection.select($cell)
-            this.emitter.emit('changeCell', $cell.text())
+            this.emitter.emit('table:input', $cell.text())
         }
+    }
+
+    onInput(event) {
+        this.emitter.emit('table:input', $(event.target).text())
     }
 }
 

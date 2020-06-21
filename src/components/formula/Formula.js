@@ -14,23 +14,23 @@ export class Formula extends ExcelComponent {
     toHTML() {
         return `
             <div class="info">f(x)</div>
-            <div class="input" contenteditable spellcheck="false"></div>
+            <div id="input" class="input" contenteditable spellcheck="false"></div>
         `
     }
 
     init() {
+        const $formula = this.$root.find('#input')
         super.init()
-        this.emitter.subscribe('changeCellsText', text => {
-            this.$root.find('.input').text(text)
-        })
-        this.emitter.subscribe('changeCell', text => {
-            this.$root.find('.input').text(text)
+        this.emitter.subscribe('table:input', text => {
+            $formula.text(text)
         })
     }
 
     onInput() {
         const text = event.target.textContent.trim()
-        this.emitter.emit('changeFormula', text)
+
+        this.emitter.emit('formula:input', text)
+
     }
 
     onKeyup(event) {
@@ -40,7 +40,7 @@ export class Formula extends ExcelComponent {
         const { key } = event
         if (keys.includes(key)) {
             event.preventDefault()
-            this.emitter.emit('changeFocusToCell')
+            this.emitter.emit('formula:focus')
         }
     }
 }
