@@ -30,7 +30,6 @@ export class Formula extends ExcelComponent {
         const text = event.target.textContent.trim()
 
         this.emitter.emit('formula:input', text)
-
     }
 
     onKeyup(event) {
