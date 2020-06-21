@@ -48,6 +48,7 @@ export class Table extends ExcelComponent {
             this.selection.select($(event.target))
             const text = $(event.target).text()
             this.emitter.emit('table:input', text)
+
         }
     }
 
@@ -72,7 +73,6 @@ export class Table extends ExcelComponent {
     }
 
     onInput(event) {
-        console.log($(event.target).text())
         this.emitter.emit('table:input', $(event.target).text())
     }
 }

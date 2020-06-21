@@ -28,7 +28,9 @@ export class Formula extends ExcelComponent {
 
     onInput() {
         const text = event.target.textContent.trim()
+
         this.emitter.emit('formula:input', text)
+
     }
 
     onKeyup(event) {
