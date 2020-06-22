@@ -1,1 +1,3 @@
 # excel
+
+npm run start
